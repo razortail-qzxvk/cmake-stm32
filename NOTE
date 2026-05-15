@@ -9,7 +9,7 @@
 - STM32CubeMX(提供部分源代码)
 
 1.CMake
-- Path -> C:\cmake-4.3.1-windows-x86_64\bi
+- Path -> C:\cmake-4.3.1-windows-x86_64\bin
 
 2.ATfE
 - https://github.com/arm/arm-toolchain
@@ -36,3 +36,11 @@
 6.crossfile.ini & CMakeLists.txt
 - crossfile.ini 是 Meson 的概念, 这里借用了, 它在 CMake 里基本上是一种注入式声明文件.
 - 实现它们是非常困难的事情, 所以我会将注释写得相当详细.
+
+7.build
+- 定义一个名为ATfE的Preset.
+- cmake --fresh --preset ATfE; cmake --build --preset ATfE
+
+8.clangd
+- clangd.arguments --query-driver=C:/ATfE-22.1.0-Windows-x86_64/bin/clang*.exe
+- clangd.arguments --experimental-modules-support

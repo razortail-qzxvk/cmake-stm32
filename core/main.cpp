@@ -6,6 +6,8 @@
 #include "usart.h"
 #include <cstdint>
 
+import test;
+
 extern "C" void SystemClock_Config(void);
 
 extern "C" int main() {
@@ -18,6 +20,7 @@ extern "C" int main() {
   MX_USART6_UART_Init();
   MX_TIM14_Init();
   MX_SPI3_Init();
+  [[maybe_unused]] int sum = add(3, 4);
   while (true) {
   }
 }

@@ -23,13 +23,13 @@ set(CMAKE_C_COMPILER_TARGET   arm-none-eabi)
 set(CMAKE_CXX_COMPILER_TARGET arm-none-eabi)
 # 全局编译选项
 set(core_flags "")
-string(APPEND core_flags "-freestanding ") # 可以不写; 加上之后main函数会变为普通函数(需要extern "C"给汇编)
+string(APPEND core_flags "-ffreestanding ") # 可以不写; 加上之后main函数会变为普通函数(需要extern "C"给汇编)
 string(APPEND core_flags "--config=llvmlibc.cfg ")
 string(APPEND core_flags "-mcpu=cortex-m4 ")
 string(APPEND core_flags "-mfloat-abi=hard ")
 string(APPEND core_flags "-mfpu=fpv4-sp-d16 ")
 set(CMAKE_ASM_FLAGS_INIT "${core_flags}")
-set(CMAKE_C_FLAGS_INIT   "${core_flags} -rtlib=compile-rt") # LLVM原汁原味
+set(CMAKE_C_FLAGS_INIT   "${core_flags}")
 set(CMAKE_CXX_FLAGS_INIT "${core_flags} -stdlib=libc++") # LLVM原汁原味
 unset(core_flags)
 # compile_commands.json
