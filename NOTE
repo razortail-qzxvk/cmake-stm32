@@ -1,0 +1,38 @@
+这是一个实验性质的CMake嵌入式交叉编译项目。
+我会事无巨细地记录下所需步骤。
+工具：
+- Windows
+- CMake
+- ATfE
+- Ninja
+- clangd & VSCode
+- STM32CubeMX(提供部分源代码)
+
+1.CMake
+- Path -> C:\cmake-4.3.1-windows-x86_64\bi
+
+2.ATfE
+- https://github.com/arm/arm-toolchain
+- Path -> C:\ATfE-22.1.0-Windows-x86_64\bin
+
+3.Ninja
+- Path -> C:\Ninja
+
+4.clangd & VSCode
+- 事实上如果ATfE在23版本以上(截至2026.5 LLVM也只有22), ARM宣传它们会打包clangd
+- 安装LLVM
+- Path -> C:\Program Files\LLVM\bin
+- VSCode默认就能嗅探到
+- 事实上你也许有必要新建一个名为 CMake 的 Profile
+- clangd.arguments -> --query-driver=C:/ATfE-22.1.0-Windows-x86_64/bin/clang*,
+- clangd.arguments -> --experimental-modules-support
+- 别忘了在Setting里写 "settingsSync.ignoredSettings": ["clangd.arguments"]. 以免你的Linux和Windows产生--query-driver冲突.
+
+5.STM32CubeMX
+- 新建一个CubeMX项目, 注意放在子文件夹STM32CubeMX里, 因为它想当家长的理念和我们是不匹配的.
+- 项目(.ioc)名字就叫STM32CubeMX就行, 无所谓.
+- 生成目标也无所谓, 毕竟我们只要源码, 但如果 ST Arm Clang 这个魔改版可选那就选, 可以为ATfE提供参考.
+
+6.crossfile.ini & CMakeLists.txt
+- crossfile.ini 是 Meson 的概念, 这里借用了, 它在 CMake 里基本上是一种注入式声明文件.
+- 实现它们是非常困难的事情, 所以我会将注释写得相当详细.
