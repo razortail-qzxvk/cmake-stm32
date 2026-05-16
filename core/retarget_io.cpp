@@ -8,7 +8,7 @@
 
 extern "C" {
 
-#define huart_printf huart1
+#define huart_printf huart3
 
 /**
  * LLVM-libc
