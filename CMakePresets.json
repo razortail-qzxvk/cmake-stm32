@@ -5,7 +5,7 @@
             "name": "ATfE",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build",
-            "toolchainFile": "${sourceDir}/cross.cmake",
+            "toolchainFile": "${sourceDir}/cross.ini",
             "cacheVariables": {}
         }
     ],
