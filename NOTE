@@ -9,11 +9,10 @@
 - STM32CubeMX(提供部分源代码)
 
 1.CMake
-- Path -> C:\cmake-4.3.1-windows-x86_64\bin
+- installer 引导安装即可
 
 2.ATfE
 - https://github.com/arm/arm-toolchain
-- Path -> C:\ATfE-22.1.0-Windows-x86_64\bin
 
 3.Ninja
 - Path -> C:\Ninja
@@ -41,11 +40,23 @@
 - 定义一个名为ATfE的Preset.
 - cmake --fresh --preset ATfE; cmake --build --preset ATfE
 
-8.clangd
-- clangd.arguments --query-driver=C:/ATfE-22.1.0-Windows-x86_64/bin/clang*.exe
-- clangd.arguments --experimental-modules-support
+8.startup patch
+- .s -> .S
+- .fpu softvfp -> fpv4-sp-d16 / fpv5-sp-d16
+- [待研究] 考虑重写
 
-9.patch
-- 启动文件后缀改为大写 .S
-- 启动文件的 .fpu softvfp 改为 fpv4-sp-d16 / fpv5-sp-d16
-- 链接脚本的 READONLY 语法删除
+9.ld
+- READONLY 语法删除
+- [待研究] libc.a libm.a libgcc.a
+- [待研究] 考虑重写
+
+10.Cortex-Debug
+- 首先找一个 arm-none-eabi-gdb.exe, ATfE 不仅没有 gdb, 连 lldb 都没有(它也没有 clangd)
+- https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
+- arm-gnu-toolchain-15.2.rel1-mingw-w64-x86_64-arm-none-eabi.zip <- Windows & x86_64 & AArch32 & bare-metal
+- .svd -> C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\SVD\ -> copy
+- 安装插件
+- 编写 launch.json
+
+11.retarget
+- [待研究] 考虑 ARM方案 或 C++23 std::printf

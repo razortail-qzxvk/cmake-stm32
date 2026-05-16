@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28) # C++20 Modules 地表唯一支持 C++20 Modules 配交叉编译的元构建系统
-project(cmake_stm32 ASM C CXX)
+project(stm32f407 ASM C CXX)
 add_executable(${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}

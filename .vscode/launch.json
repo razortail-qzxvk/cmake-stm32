@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex-Debug",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "runToEntryPoint": "main",
+            "device": "STM32F407VE",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/stm32f407.elf",
+            "gdbPath": "C:/arm-gnu-toolchain-15.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb.exe",
+            "svdFile": "${workspaceFolder}/STM32F407.svd"
+            // request launch || attach
+            // type 转交给 Cortex-Debug 插件
+            // servertype 指定调试器
+            // runToEntryPoint 运行到 main 函数
+            // device 指定芯片型号（交给 J-Link）
+            // cwd GDB J-link 等需要的转义字段
+        }
+    ]
+}
