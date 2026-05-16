@@ -44,3 +44,8 @@
 8.clangd
 - clangd.arguments --query-driver=C:/ATfE-22.1.0-Windows-x86_64/bin/clang*.exe
 - clangd.arguments --experimental-modules-support
+
+9.patch
+- 启动文件后缀改为大写 .S
+- 启动文件的 .fpu softvfp 改为 fpv4-sp-d16 / fpv5-sp-d16
+- 链接脚本的 READONLY 语法删除
