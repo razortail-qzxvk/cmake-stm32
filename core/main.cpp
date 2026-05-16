@@ -5,6 +5,7 @@
 #include "tim.h"
 #include "usart.h"
 #include <cstdint>
+#include <cstdio>
 
 import test;
 
@@ -21,6 +22,7 @@ int main() {
   MX_TIM14_Init();
   MX_SPI3_Init();
   [[maybe_unused]] int sum = add(3, 4);
+  puts("Hello LLVM-libc via UART!");
   while (true) {
   }
 }

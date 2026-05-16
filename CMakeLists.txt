@@ -10,6 +10,7 @@ target_include_directories(${PROJECT_NAME}
 target_sources(${PROJECT_NAME}
   PRIVATE
     startup_stm32f407xx.S
+    core/retarget_io.cpp
     core/main.cpp
 )
 

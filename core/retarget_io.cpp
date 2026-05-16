@@ -1,84 +1,60 @@
+// clang-format off
 #include "usart.h"
-#include <errno.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stm32f4xx_hal_uart.h>
+#include <utility>
 
 extern "C" {
+
 #define huart_printf huart1
 
 /**
- * LLVM-libc printf
- * 不同于 microlib / newlib / picolibc.
- * write 接管 stdout(1) 和 stderr(2)
- * isatty 声明交互式终端
- * fstat 声明 stdout/stderr 为字符设备
- * lseek 移动流指针报错
+ * LLVM-libc
+ * 完全不同于 microlib(ARMCC) / newlib / Picolibc
+ * 无需关心 write / _write / fputc / FILE* 等等
+ * 参见：
+ * https://llvm.org/devmtg/2024-10/slides/lightning/Smith-Using-llvm-libc.pdf
+ * https://llvm.org/devmtg/2024-10/slides/techtalk/Hosek-ModernEmbeddedDevelopment-with-LLVM.pdf
+ * 
+ * 关于 __llvm_libc_stdio_write/read 的返回值.
+ * 上面的文档给出的是 ssize_t, 但它们又砍掉了所有POSIX相关的东西, 我们又用不了, 可以说是自相矛盾了. 所以这里就用int.
  */
 
-#if 0
-static void stdout_putchar(uint8_t ch) {
-  while ((huart_printf.Instance->SR & UART_FLAG_TXE) == 0);
-  huart_printf.Instance->DR = ch;
-}
-ssize_t write(int fd, const void* buf, size_t count) {
-  if (fd == 1 || fd == 2) {
-    const uint8_t* p = static_cast<const uint8_t*>(buf);
-    for (size_t i = 0; i < count; i++) {
-      if (p[i] == '\n') stdout_putchar('\r');
-      stdout_putchar(p[i]);
-    }
-    return count;
-  }
-  return -1;
-}
-#else
-ssize_t write(int fd, const void* buf, size_t count) {
-  if (fd == 1 || fd == 2) {
-    HAL_UART_Transmit(&huart_printf, (const uint8_t*)buf, count, HAL_MAX_DELAY);
-    return count;
-  }
-  return -1;
-}
-#endif
+struct __llvm_libc_stdio_cookie { UART_HandleTypeDef* uart = &huart_printf; } __llvm_libc_stdin_cookie , __llvm_libc_stdout_cookie, __llvm_libc_stderr_cookie;
 
-int isatty(int fd) {
-  if (fd == 0 || fd == 1 || fd == 2) {
-    return 1;
+int __llvm_libc_stdio_write(void* cookie, const char* buf, size_t size) {
+  if (cookie == nullptr || buf == nullptr) return -1;
+  auto* stream = static_cast<__llvm_libc_stdio_cookie*>(cookie);
+  if (stream->uart == nullptr) return -1;
+  if (!std::in_range<int>(size)) return -1;
+  int size_ = static_cast<int>(size);
+#if 0
+  int transferred = 0;
+  while (transferred < size_) {
+    int remaining = size_ - transferred;
+    uint16_t chunk = remaining > UINT16_MAX ? UINT16_MAX : static_cast<uint16_t>(remaining);
+    if (HAL_UART_Transmit(stream->uart, reinterpret_cast<const uint8_t*>(buf + transferred), chunk, HAL_MAX_DELAY) != HAL_OK) {
+      return transferred == 0 ? -1 : transferred;
+    }
+    transferred += chunk;
   }
+  return transferred;
+#else
+  for (int i = 0; i < size_; ++i) {
+    if (buf[i] == '\n') {
+      while ((stream->uart->Instance->SR & UART_FLAG_TXE) == 0);
+      stream->uart->Instance->DR = '\r';
+    }
+    while ((stream->uart->Instance->SR & UART_FLAG_TXE) == 0);
+    stream->uart->Instance->DR = static_cast<uint8_t>(buf[i]);
+  }
+  return size_;
+#endif
+}
+
+int __llvm_libc_stdio_read([[maybe_unused]] void *cookie, [[maybe_unused]] char *buf, [[maybe_unused]] size_t size) {
   return 0;
 }
 
-off_t lseek(int fd, off_t offset, int whence) {
-  (void)fd;
-  (void)offset;
-  (void)whence;
-  errno = ESPIPE;
-  return -1;
-}
-
-int fstat(int fd, struct stat* st) {
-  if (fd == 0 || fd == 1 || fd == 2) {
-    st->st_mode = S_IFCHR;
-    return 0;
-  }
-  return -1;
-}
-
-ssize_t read(int fd, void* buf, size_t nbyte) {
-  (void)fd;
-  (void)buf;
-  (void)nbyte;
-  return -1;
-}
-int close(int __fildes) {
-  (void)__fildes;
-  return -1;
-}
-
-ssize_t _write(int fd, const void* buf, size_t count) { return write(fd, buf, count); }
-int _isatty(int fd) { return isatty(fd); }
-off_t _lseek(int fd, off_t offset, int whence) { return lseek(fd, offset, whence); }
-int _fstat(int fd, struct stat* st) { return fstat(fd, st); }
-ssize_t _read(int fd, void* buf, size_t nbyte) { return read(fd, buf, nbyte); }
-int _close(int __fildes) { return close(__fildes); }
 } // extern "C"
