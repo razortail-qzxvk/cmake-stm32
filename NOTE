@@ -55,8 +55,10 @@
 - https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 - arm-gnu-toolchain-15.2.rel1-mingw-w64-x86_64-arm-none-eabi.zip <- Windows & x86_64 & AArch32 & bare-metal
 - .svd -> C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\SVD\ -> copy
+- 注意不要再Path里留下Jlink路径，可以在launch.json里指定
 - 安装插件
 - 编写 launch.json
+- 这也不太简单, 不过我一样会写明注释.
 
 11.retarget
 - [待研究] 考虑 ARM方案 或 C++23 std::printf
