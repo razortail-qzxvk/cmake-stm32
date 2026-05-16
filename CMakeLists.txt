@@ -9,6 +9,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
   PRIVATE
+    startup_stm32f407xx.S
     core/main.cpp
 )
 
@@ -55,26 +56,31 @@ target_sources(${PROJECT_NAME}
     STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
     STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
     STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
-    STM32CubeMX/startup_stm32f407xx.s
 )
 
 target_compile_options(${PROJECT_NAME}
   PRIVATE
-    -O0
-    -Wall -Wextra -Wpedantic
-    # -Werror
-    -fno-exceptions -fno-rtti
-    -ffunction-sections -fdata-sections
-    -fstack-usage
-    -funsigned-char
     -gdwarf-4
-    -Wno-packed
-    -Wno-reserved-id-macro
-    -Wno-unused-macros
-    -Wno-documentation-unknown-command
-    -Wno-documentation
-    -Wno-parentheses-equality
-    -Wno-reserved-identifier
+
+    $<$<COMPILE_LANGUAGE:C,CXX>:
+      -O0
+      -Wall -Wextra -Wpedantic
+      # -Werror
+      -ffunction-sections -fdata-sections
+      -fstack-usage
+      -funsigned-char
+      -Wno-packed
+      -Wno-reserved-id-macro
+      -Wno-unused-macros
+      -Wno-documentation-unknown-command
+      -Wno-documentation
+      -Wno-parentheses-equality
+      -Wno-reserved-identifier
+    >
+
+    $<$<COMPILE_LANGUAGE:CXX>:
+      -fno-exceptions -fno-rtti
+    >
 )
 
 # -Wall -Wextra -Wpedantic -Werror 警告
@@ -86,10 +92,13 @@ target_compile_options(${PROJECT_NAME}
 # -Wno* CMSIS和ST非标准代码需要
 
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-    STM32F407xx
-    USE_FULL_LL_DRIVER
-    CMSIS_device_header="stm32f407xx.h"
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+    $<$<COMPILE_LANGUAGE:C,CXX>:
+      STM32F407xx
+      USE_FULL_LL_DRIVER
+      CMSIS_device_header="stm32f407xx.h"
+    >
 )
 
 target_compile_features(${PROJECT_NAME}

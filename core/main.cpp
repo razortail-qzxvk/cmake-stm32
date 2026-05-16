@@ -10,7 +10,7 @@ import test;
 
 extern "C" void SystemClock_Config(void);
 
-extern "C" int main() {
+int main() {
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
