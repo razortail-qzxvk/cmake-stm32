@@ -8,19 +8,7 @@
 
 extern "C" {
 
-#define huart_printf huart3
-
-/**
- * LLVM-libc
- * 完全不同于 microlib(ARMCC) / newlib / Picolibc
- * 无需关心 write / _write / fputc / FILE* 等等
- * 参见：
- * https://llvm.org/devmtg/2024-10/slides/lightning/Smith-Using-llvm-libc.pdf
- * https://llvm.org/devmtg/2024-10/slides/techtalk/Hosek-ModernEmbeddedDevelopment-with-LLVM.pdf
- * 
- * 关于 __llvm_libc_stdio_write/read 的返回值.
- * 上面的文档给出的是 ssize_t, 但它们又砍掉了所有POSIX相关的东西, 我们又用不了, 可以说是自相矛盾了. 所以这里就用int.
- */
+#define huart_printf huart1
 
 struct __llvm_libc_stdio_cookie { UART_HandleTypeDef* uart = &huart_printf; } __llvm_libc_stdin_cookie , __llvm_libc_stdout_cookie, __llvm_libc_stderr_cookie;
 

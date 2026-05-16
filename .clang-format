@@ -3,7 +3,7 @@ Language: Cpp
 BasedOnStyle: LLVM # LLVM/Google/Chromium/Mozilla/WebKit/Microsoft/GNU/InheritParentConfig
 
 # 取消列限制
-ColumnLimit: 300
+ColumnLimit: 120
 
 # 一行出
 BraceWrapping:
