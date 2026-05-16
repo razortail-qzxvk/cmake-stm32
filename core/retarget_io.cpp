@@ -1,9 +1,10 @@
-// clang-format off
 #include "usart.h"
 #include <stddef.h>
 #include <stdint.h>
 #include <stm32f4xx_hal_uart.h>
 #include <utility>
+
+// clang-format off
 
 extern "C" {
 

@@ -12,6 +12,7 @@ target_sources(${PROJECT_NAME}
     startup_stm32f407xx.S
     core/retarget_io.cpp
     core/main.cpp
+    core/indicator.cpp
 )
 
 target_sources(${PROJECT_NAME}

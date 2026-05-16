@@ -1,15 +1,8 @@
-#include "main.h"
-#include "dma.h"
-#include "gpio.h"
-#include "spi.h"
-#include "tim.h"
-#include "usart.h"
-#include <cstdint>
-#include <cstdio>
-
+#include "main.hpp"
 import test;
 
 extern "C" void SystemClock_Config(void);
+extern void Indicator();
 
 int main() {
   HAL_Init();
@@ -24,5 +17,6 @@ int main() {
   [[maybe_unused]] int sum = add(3, 4);
   puts("Hello LLVM-libc via UART!");
   while (true) {
+    NON_BLOCKING_DELAY(500, Indicator);
   }
 }
