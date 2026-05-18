@@ -2,6 +2,7 @@
 extern "C" void SystemClock_Config(void);
 
 import indicator;
+import my_std;
 
 template <auto AnonymousTag = [] {}, typename F>
 void NON_BLOCKING_Delay(uint32_t time, F&& func) {
@@ -22,7 +23,7 @@ int main() {
   MX_USART6_UART_Init();
   MX_TIM14_Init();
   MX_SPI3_Init();
-  puts("Hello LLVM-libc via UART!");
+  std::puts("Hello LLVM-libc via UART!");
   while (true) {
     NON_BLOCKING_Delay(500, Indicator);
   }
