@@ -9,7 +9,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
   PRIVATE
-    _st/refactoring/startup_stm32f407xx.S
+    STM32CubeMX/refactoring/startup_stm32f407xx.S
     core/retarget_io.cpp
     core/main.cpp
 )
@@ -23,11 +23,11 @@ target_sources(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
   SYSTEM PRIVATE
-    _st/Inc
-    _st/Drivers/STM32F4xx_HAL_Driver/Inc
-    _st/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
-    _st/Drivers/CMSIS/Device/ST/STM32F4xx/Include
-    _st/Drivers/CMSIS/Include
+    STM32CubeMX/Inc
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Inc
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+    STM32CubeMX/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+    STM32CubeMX/Drivers/CMSIS/Include
 )
 
 # SYSTEM PRIVATE 有助于抑制严格的用户代码警告, 作用在ARM或ST的实现上.
@@ -35,33 +35,33 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
   PRIVATE
-    _st/Src/main.c
-    _st/Src/gpio.c
-    _st/Src/dma.c
-    _st/Src/spi.c
-    _st/Src/tim.c
-    _st/Src/usart.c
-    _st/Src/stm32f4xx_it.c
-    _st/Src/stm32f4xx_hal_msp.c
-    _st/Src/system_stm32f4xx.c
-    _st/Src/sysmem.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
-    _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
+    STM32CubeMX/Src/main.c
+    STM32CubeMX/Src/gpio.c
+    STM32CubeMX/Src/dma.c
+    STM32CubeMX/Src/spi.c
+    STM32CubeMX/Src/tim.c
+    STM32CubeMX/Src/usart.c
+    STM32CubeMX/Src/stm32f4xx_it.c
+    STM32CubeMX/Src/stm32f4xx_hal_msp.c
+    STM32CubeMX/Src/system_stm32f4xx.c
+    STM32CubeMX/Src/sysmem.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+    STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
 )
 
 target_compile_options(${PROJECT_NAME}
@@ -124,7 +124,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_link_options(${PROJECT_NAME}
   PRIVATE
-    "-T${CMAKE_CURRENT_SOURCE_DIR}/_st/refactoring/STM32F407xx_FLASH.ld"
+    "-T${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeMX/refactoring/STM32F407xx_FLASH.ld"
     "-nostartfiles"
     "-Wl,-Map=${PROJECT_NAME}.map"
     "-Wl,--cref"
@@ -162,7 +162,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 # 补丁
 # 通常 -isystem 可以抑制头文件的非标准代码, 但.c就无能为力了.
 set_source_files_properties(
-  _st/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
+  STM32CubeMX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
   PROPERTIES
     COMPILE_OPTIONS "-Wno-unused-parameter"
 )

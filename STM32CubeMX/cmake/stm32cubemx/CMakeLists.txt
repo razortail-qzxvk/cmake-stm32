@@ -32,9 +32,6 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../startup_stm32f407xx.s
 )
 
-# sysmem.c ST提供, 默认保留
-# syscalls.c 移除, newlib路线, 和现代LLVM八字不合
-
 # STM32 HAL/LL Drivers
 set(STM32_Drivers_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Src/system_stm32f4xx.c
