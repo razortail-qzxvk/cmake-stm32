@@ -40,7 +40,7 @@
 
 7.build
 - 定义一个名为ATfE的Preset.
-- cmake --fresh --preset ATfE; cmake --build --preset ATfE
+- cmake --fresh -B build -G Ninja --toolchain ./.cross.cmake; cmake --build build -j
 
 8.startup patch
 - .s -> .S
