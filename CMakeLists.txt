@@ -9,7 +9,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
   PRIVATE
-    startup_stm32f407xx.S
+    STM32CubeMX/refactoring/startup_stm32f407xx.S
     core/retarget_io.cpp
     core/main.cpp
 )
@@ -124,7 +124,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_link_options(${PROJECT_NAME}
   PRIVATE
-    "-T${CMAKE_CURRENT_SOURCE_DIR}/STM32F407xx_FLASH.ld"
+    "-T${CMAKE_CURRENT_SOURCE_DIR}/STM32CubeMX/refactoring/STM32F407xx_FLASH.ld"
     "-nostartfiles"
     "-Wl,-Map=${PROJECT_NAME}.map"
     "-Wl,--cref"
