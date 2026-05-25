@@ -1,8 +1,9 @@
 #include "main.hpp"
+#include <cstdio>
+#include <utility>
 extern "C" void SystemClock_Config(void);
 
 import indicator;
-import my_std;
 
 template <auto AnonymousTag = [] {}, typename F>
 void NON_BLOCKING_Delay(uint32_t time, F&& func) {

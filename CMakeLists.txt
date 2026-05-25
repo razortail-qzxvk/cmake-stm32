@@ -17,7 +17,6 @@ target_sources(${PROJECT_NAME}
 target_sources(${PROJECT_NAME}
   PUBLIC
     FILE_SET CXX_MODULES FILES
-    core/my_std.cppm
     core/indicator.cppm
 )
 
